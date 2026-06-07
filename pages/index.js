@@ -52,6 +52,41 @@ export default function Home() {
       gsap.registerPlugin(ScrollTrigger, SplitText);
       scrollTriggerRef = ScrollTrigger;
 
+      // === PAGE LOAD ANIMATIONS ===
+      // Title: opacity + scale, expo out, 0.2s delay, 4s
+      gsap.fromTo(
+        ".hero_title_wrap",
+        { opacity: 0, scale: 0.9 },
+        { opacity: 1, scale: 1, duration: 4, delay: 0.2, ease: "expo.out" }
+      );
+      // Small text: opacity only, power1 out, 1.7s delay, 1.5s
+      gsap.fromTo(
+        ".u-text-small",
+        { opacity: 0 },
+        { opacity: 1, duration: 1.5, delay: 1.7, ease: "power1.out" }
+      );
+      // Button: opacity only, power1 out, 1.7s delay, 1.5s
+      gsap.fromTo(
+        ".button",
+        { opacity: 0 },
+        { opacity: 1, duration: 1.5, delay: 1.7, ease: "power1.out" }
+      );
+      // Shape blobs: opacity + scale, power1 out, 2s delay, 4s, infinite yoyo pulse
+      gsap.fromTo(
+        ".shape",
+        { opacity: 0, scale: 0 },
+        {
+          opacity: 0.6,
+          scale: 1,
+          duration: 4,
+          delay: 2,
+          ease: "power1.out",
+          repeat: -1,
+          yoyo: true,
+        }
+      );
+
+      // === SCROLL ANIMATIONS ===
       await document.fonts.ready;
 
       const wraps = document.querySelectorAll('[data-sticky-title="wrap"]');
@@ -163,7 +198,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <div className="page-wrapper">
+      <div className="page-wrapper" data-page="home">
         <div className="main-wrapper">
           <div className="fixed-top">
             <p className="name u-text-small">J.R. Güemes</p>

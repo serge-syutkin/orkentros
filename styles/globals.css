@@ -22,6 +22,14 @@ input:focus::placeholder {
   visibility: hidden;
 }
 
+/* Page load animation initial states — scoped to homepage only */
+[data-page="home"] .hero_title_wrap,
+[data-page="home"] .u-text-small,
+[data-page="home"] .button,
+[data-page="home"] .shape {
+  opacity: 0;
+}
+
 /* Modal states driven by data attributes */
 [data-modal-group-status] {
   transition: all 0.2s linear;

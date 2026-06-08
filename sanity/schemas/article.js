@@ -20,6 +20,7 @@ export const article = {
       name: 'publishedAt',
       title: 'Fecha de publicación',
       type: 'date',
+      initialValue: () => new Date().toISOString().slice(0, 10),
     },
     {
       name: 'body',

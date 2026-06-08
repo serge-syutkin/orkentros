@@ -7,6 +7,7 @@ export default defineConfig({
   title: 'El Universo de Orkentros',
   projectId: '4mczpphj',
   dataset: 'production',
+  basePath: '/studio',
   plugins: [structureTool()],
   schema: {
     types: [article],

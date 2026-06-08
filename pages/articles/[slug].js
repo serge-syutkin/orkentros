@@ -1,6 +1,6 @@
 import Head from "next/head";
-import Link from "next/link";
 import { PortableText } from "next-sanity";
+import Layout from "../../components/Layout";
 import { client } from "../../sanity/lib/client";
 import { urlFor } from "../../sanity/lib/image";
 
@@ -41,60 +41,33 @@ export default function Article({ article }) {
         <title>{article.title} — El Universo de Orkentros</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <div className="page-wrapper">
-        <div className="main-wrapper">
-          <div className="fixed-top">
-            <p className="name u-text-small">J.R. Güemes</p>
-            <p className="u-text-small">Fantasía épica y oscura</p>
-            <p className="u-text-small">Inspirado en la mitología celta y vikinga</p>
+      <Layout>
+        <section className="article_hero u-section">
+          <div className="u-container">
+            <div className="article_hero_layout">
+              <h1 className="article_title">{article.title}</h1>
+              {article.publishedAt && (
+                <p className="article_date u-text-small">
+                  {formatDate(article.publishedAt)}
+                </p>
+              )}
+            </div>
           </div>
+        </section>
 
-          <section className="article_hero u-section">
-            <div className="u-container">
-              <div className="article_hero_layout">
-                <h1 className="article_title">{article.title}</h1>
-                {article.publishedAt && (
-                  <p className="article_date u-text-small">
-                    {formatDate(article.publishedAt)}
-                  </p>
-                )}
-              </div>
+        <section className="article_content u-section">
+          <div className="u-container-article">
+            <div className="article_rte w-richtext">
+              {article.body && (
+                <PortableText
+                  value={article.body}
+                  components={portableTextComponents}
+                />
+              )}
             </div>
-          </section>
-
-          <section className="article_content u-section">
-            <div className="u-container-article">
-              <div className="article_rte w-richtext">
-                {article.body && (
-                  <PortableText
-                    value={article.body}
-                    components={portableTextComponents}
-                  />
-                )}
-              </div>
-            </div>
-          </section>
-
-          <section className="footer u-section">
-            <div className="u-container-100">
-              <div className="footer_layout">
-                <div className="footer_title_wrap">
-                  <h1 className="hero_heading">
-                    El mundo
-                    <br />
-                    del orkentros
-                  </h1>
-                </div>
-                <div className="footer_bottom">
-                  <Link href="/articles" className="button">
-                    <div>← Todos los artículos</div>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </section>
-        </div>
-      </div>
+          </div>
+        </section>
+      </Layout>
     </>
   );
 }

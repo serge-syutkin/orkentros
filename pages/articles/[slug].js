@@ -1,13 +1,44 @@
 import Head from "next/head";
 import Link from "next/link";
+import { PortableText } from "next-sanity";
+import { client } from "../../sanity/lib/client";
+import { urlFor } from "../../sanity/lib/image";
 
-// This page will be wired to Sanity CMS in Phase 2.
-// For now it renders a placeholder.
-export default function Article() {
+function formatDate(dateStr) {
+  if (!dateStr) return "";
+  const [year, month, day] = dateStr.split("-");
+  return `${day}.${month}.${year}`;
+}
+
+const portableTextComponents = {
+  types: {
+    image: ({ value }) => (
+      <figure>
+        <img
+          src={urlFor(value).width(900).fit("max").url()}
+          alt={value.alt || ""}
+          style={{ maxWidth: "100%", height: "auto" }}
+        />
+        {value.alt && <figcaption>{value.alt}</figcaption>}
+      </figure>
+    ),
+  },
+  marks: {
+    link: ({ value, children }) => (
+      <a href={value?.href} target="_blank" rel="noreferrer">
+        {children}
+      </a>
+    ),
+  },
+};
+
+export default function Article({ article }) {
+  if (!article) return null;
+
   return (
     <>
       <Head>
-        <title>Artículo — El Universo de Orkentros</title>
+        <title>{article.title} — El Universo de Orkentros</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <div className="page-wrapper">
@@ -17,21 +48,33 @@ export default function Article() {
             <p className="u-text-small">Fantasía épica y oscura</p>
             <p className="u-text-small">Inspirado en la mitología celta y vikinga</p>
           </div>
+
           <section className="article_hero u-section">
             <div className="u-container">
               <div className="article_hero_layout">
-                <h1 className="article_title">Título del artículo</h1>
-                <p className="article_date u-text-small">Fecha</p>
+                <h1 className="article_title">{article.title}</h1>
+                {article.publishedAt && (
+                  <p className="article_date u-text-small">
+                    {formatDate(article.publishedAt)}
+                  </p>
+                )}
               </div>
             </div>
           </section>
+
           <section className="article_content u-section">
             <div className="u-container-article">
               <div className="article_rte w-richtext">
-                <p>Contenido del artículo próximamente.</p>
+                {article.body && (
+                  <PortableText
+                    value={article.body}
+                    components={portableTextComponents}
+                  />
+                )}
               </div>
             </div>
           </section>
+
           <section className="footer u-section">
             <div className="u-container-100">
               <div className="footer_layout">
@@ -57,11 +100,26 @@ export default function Article() {
 }
 
 export async function getStaticPaths() {
-  // Phase 2: will fetch slugs from Sanity
-  return { paths: [], fallback: false };
+  const slugs = await client.fetch(
+    `*[_type == "article" && defined(slug.current)].slug.current`
+  );
+  return {
+    paths: slugs.map((slug) => ({ params: { slug } })),
+    fallback: "blocking",
+  };
 }
 
-export async function getStaticProps() {
-  // Phase 2: will fetch article data from Sanity by slug
-  return { props: {} };
+export async function getStaticProps({ params }) {
+  const article = await client.fetch(
+    `*[_type == "article" && slug.current == $slug][0] {
+      title,
+      publishedAt,
+      body
+    }`,
+    { slug: params.slug }
+  );
+
+  if (!article) return { notFound: true };
+
+  return { props: { article }, revalidate: 3600 };
 }

@@ -1,4 +1,5 @@
 import { ExcerptInput } from '../components/ExcerptInput'
+import { AutoSlugInput } from '../components/AutoSlugInput'
 
 export const article = {
   name: 'article',
@@ -17,6 +18,7 @@ export const article = {
       type: 'slug',
       options: { source: 'title' },
       validation: (Rule) => Rule.required(),
+      components: { input: AutoSlugInput },
     },
     {
       name: 'excerpt',

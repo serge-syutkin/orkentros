@@ -40,6 +40,19 @@ export default function Article({ article }) {
       <Head>
         <title>{article.title} — El Universo de Orkentros</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content={article.excerpt || ""} />
+        <meta property="og:title" content={`${article.title} — El Universo de Orkentros`} />
+        <meta property="og:description" content={article.excerpt || ""} />
+        <meta property="og:type" content="article" />
+        {article.coverImage && (
+          <meta property="og:image" content={urlFor(article.coverImage).width(1200).height(630).fit("crop").url()} />
+        )}
+        <meta name="twitter:title" content={`${article.title} — El Universo de Orkentros`} />
+        <meta name="twitter:description" content={article.excerpt || ""} />
+        <meta name="twitter:card" content="summary_large_image" />
+        {article.coverImage && (
+          <meta name="twitter:image" content={urlFor(article.coverImage).width(1200).height(630).fit("crop").url()} />
+        )}
       </Head>
       <Layout>
         <section className="article_hero u-section">
@@ -98,6 +111,7 @@ export async function getStaticProps({ params }) {
   const article = await client.fetch(
     `*[_type == "article" && slug.current == $slug][0] {
       title,
+      excerpt,
       publishedAt,
       coverImage,
       body

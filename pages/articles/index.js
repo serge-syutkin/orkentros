@@ -15,6 +15,13 @@ export default function Articles({ articles }) {
       <Head>
         <title>Artículos — El Universo de Orkentros</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="" />
+        <meta property="og:title" content="Artículos — El Universo de Orkentros" />
+        <meta property="og:description" content="" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:title" content="Artículos — El Universo de Orkentros" />
+        <meta name="twitter:description" content="" />
+        <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <Layout>
         <section className="article_hero u-section">

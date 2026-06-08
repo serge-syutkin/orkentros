@@ -17,6 +17,13 @@ export const article = {
       validation: (Rule) => Rule.required(),
     },
     {
+      name: 'excerpt',
+      title: 'Extracto (descripción SEO)',
+      type: 'text',
+      rows: 3,
+      description: 'Breve descripción del artículo para buscadores y redes sociales (máx. 160 caracteres).',
+    },
+    {
       name: 'publishedAt',
       title: 'Fecha de publicación',
       type: 'date',

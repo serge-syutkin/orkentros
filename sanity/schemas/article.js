@@ -22,6 +22,7 @@ export const article = {
       type: 'text',
       rows: 3,
       description: 'Breve descripción del artículo para buscadores y redes sociales (máx. 160 caracteres).',
+      validation: (Rule) => Rule.max(160).warning('Supera los 160 caracteres recomendados para SEO.'),
     },
     {
       name: 'publishedAt',

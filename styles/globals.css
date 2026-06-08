@@ -35,16 +35,16 @@ input:focus::placeholder {
 .articles_item-link {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
   gap: 20px;
   padding: 1.5rem 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   text-decoration: none;
-  transition: opacity 0.2s;
+  transition: color 0.2s;
 }
 
-.articles_item-link:hover {
-  opacity: 0.6;
+.articles_item-link:hover .articles_item-title {
+  color: var(--red);
 }
 
 .articles_item-title {
@@ -53,11 +53,13 @@ input:focus::placeholder {
   font-weight: 700;
   color: #fff;
   line-height: 110%;
+  transition: color 0.2s;
 }
 
 .articles_item-date {
   white-space: nowrap;
   color: rgba(255, 255, 255, 0.5);
+  flex-shrink: 0;
 }
 
 /* GSAP sticky scroll: stacked items start hidden, GSAP reveals them */

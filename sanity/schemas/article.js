@@ -45,6 +45,7 @@ export const article = {
           name: 'alt',
           title: 'Texto alternativo',
           type: 'string',
+          hidden: ({ parent }) => !parent?.asset,
         },
       ],
     },

@@ -1,3 +1,12 @@
+/* Override Webflow framework fixed line-heights on headings */
+h3 {
+  line-height: 110%;
+}
+
+h4 {
+  line-height: 110%;
+}
+
 /* Font smoothing (from Webflow embed) */
 body {
   -webkit-font-smoothing: antialiased;

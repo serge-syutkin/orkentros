@@ -1,3 +1,5 @@
+import { ExcerptInput } from '../components/ExcerptInput'
+
 export const article = {
   name: 'article',
   title: 'Artículo',
@@ -23,6 +25,7 @@ export const article = {
       rows: 3,
       description: 'Breve descripción del artículo para buscadores y redes sociales (máx. 160 caracteres).',
       validation: (Rule) => Rule.max(160).warning('Supera los 160 caracteres recomendados para SEO.'),
+      components: { input: ExcerptInput },
     },
     {
       name: 'publishedAt',

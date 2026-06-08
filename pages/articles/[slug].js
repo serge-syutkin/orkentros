@@ -55,6 +55,18 @@ export default function Article({ article }) {
           </div>
         </section>
 
+        {article.coverImage && (
+          <section className="article_cover-section u-section">
+            <div className="u-container-article">
+              <img
+                className="article_cover"
+                src={urlFor(article.coverImage).width(1600).fit("max").url()}
+                alt={article.coverImage.alt || ""}
+              />
+            </div>
+          </section>
+        )}
+
         <section className="article_content u-section">
           <div className="u-container-article">
             <div className="article_rte w-richtext">
@@ -87,6 +99,7 @@ export async function getStaticProps({ params }) {
     `*[_type == "article" && slug.current == $slug][0] {
       title,
       publishedAt,
+      coverImage,
       body
     }`,
     { slug: params.slug }

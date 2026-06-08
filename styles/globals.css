@@ -79,6 +79,26 @@ input:focus::placeholder {
   opacity: 0;
 }
 
+/* Article cover image */
+.article_cover {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+@media (max-width: 991px) {
+  .article_cover {
+    aspect-ratio: 3 / 2;
+  }
+}
+
+@media (max-width: 479px) {
+  .article_cover {
+    aspect-ratio: 4 / 3;
+  }
+}
+
 /* Modal states driven by data attributes */
 [data-modal-group-status] {
   transition: all 0.2s linear;

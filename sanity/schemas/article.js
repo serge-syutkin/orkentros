@@ -23,6 +23,19 @@ export const article = {
       initialValue: () => new Date().toISOString().slice(0, 10),
     },
     {
+      name: 'coverImage',
+      title: 'Imagen de portada (opcional)',
+      type: 'image',
+      options: { hotspot: true },
+      fields: [
+        {
+          name: 'alt',
+          title: 'Texto alternativo',
+          type: 'string',
+        },
+      ],
+    },
+    {
       name: 'body',
       title: 'Contenido',
       type: 'array',

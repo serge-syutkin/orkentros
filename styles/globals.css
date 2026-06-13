@@ -31,6 +31,8 @@ input:focus::placeholder {
 
 .fixed-top .name {
   justify-self: start;
+  background-color: transparent;
+  color: inherit;
 }
 
 .fixed-top .fixed-center {

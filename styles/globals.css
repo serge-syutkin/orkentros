@@ -29,6 +29,10 @@ input:focus::placeholder {
   align-items: start;
 }
 
+.fixed-top .u-text-small {
+  line-height: 120%;
+}
+
 .fixed-top .name {
   justify-self: start;
   background-color: transparent;
@@ -49,6 +53,35 @@ input:focus::placeholder {
 
 .fixed-top .header-link:hover {
   color: var(--red);
+}
+
+/* Mobile: name + intro grouped top-left (left-aligned), link top-right */
+@media (max-width: 479px) {
+  .fixed-top {
+    grid-template-columns: 1fr auto;
+    row-gap: 4px;
+  }
+
+  .fixed-top .name {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .fixed-top .fixed-center {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: start;
+    text-align: left;
+    max-width: 21ch;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .fixed-top .header-link {
+    grid-column: 2;
+    grid-row: 1;
+  }
 }
 
 /* Articles listing */

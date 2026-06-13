@@ -429,7 +429,7 @@ export default function Home() {
                       <br />
                       me dedico a escribir
                       <br />
-                      el Universo del Orkentros
+                      el Mundo del Orkentros
                       <br />
                       y me gano la vida con ello.
                     </p>

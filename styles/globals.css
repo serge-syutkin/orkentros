@@ -22,6 +22,33 @@ input:focus::placeholder {
   color: transparent;
 }
 
+/* Sitewide fixed header: name top-left, intro centered, Artículos link top-right */
+.fixed-top {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: start;
+}
+
+.fixed-top .name {
+  justify-self: start;
+}
+
+.fixed-top .fixed-center {
+  text-align: center;
+}
+
+.fixed-top .header-link {
+  justify-self: end;
+  text-align: right;
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.2s ease;
+}
+
+.fixed-top .header-link:hover {
+  color: var(--red);
+}
+
 /* Articles listing */
 .articles_list {
   list-style: none;

@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { useEffect } from "react";
+import Header from "../components/Header";
 
 function initModalBasic() {
   const modalGroup = document.querySelector("[data-modal-group-status]");
@@ -200,11 +201,7 @@ export default function Home() {
 
       <div className="page-wrapper" data-page="home">
         <div className="main-wrapper">
-          <div className="fixed-top">
-            <p className="name u-text-small">J.R. Güemes</p>
-            <p className="u-text-small">Fantasía épica y oscura</p>
-            <p className="u-text-small">Inspirado en la mitología celta y vikinga</p>
-          </div>
+          <Header />
 
           <section className="hero_section u-section">
             <div className="hero_wrap">

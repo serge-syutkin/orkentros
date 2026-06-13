@@ -37,6 +37,9 @@ input:focus::placeholder {
   justify-self: start;
   background-color: transparent;
   color: inherit;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: border-bottom-color 0.2s ease;
 }
 
 .fixed-top .fixed-center {
@@ -48,13 +51,16 @@ input:focus::placeholder {
   text-align: right;
   text-decoration: none;
   color: inherit;
-  transition: color 0.2s ease;
+  border-bottom: 2px solid transparent;
+  transition: border-bottom-color 0.2s ease;
 }
 
 /* Red hover only on desktop with a real pointer (no touch tap-stick) */
 @media (min-width: 992px) and (hover: hover) {
+  /* underline on hover, same style/color as the text */
+  .fixed-top .name:hover,
   .fixed-top .header-link:hover {
-    color: var(--red);
+    border-bottom-color: currentColor;
   }
 }
 

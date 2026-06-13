@@ -51,8 +51,11 @@ input:focus::placeholder {
   transition: color 0.2s ease;
 }
 
-.fixed-top .header-link:hover {
-  color: var(--red);
+/* Red hover only on desktop with a real pointer (no touch tap-stick) */
+@media (min-width: 992px) and (hover: hover) {
+  .fixed-top .header-link:hover {
+    color: var(--red);
+  }
 }
 
 /* Mobile: name + intro grouped top-left (left-aligned), link top-right */
@@ -105,8 +108,10 @@ input:focus::placeholder {
   transition: color 0.2s;
 }
 
-.articles_item-link:hover .articles_item-title {
-  color: var(--red);
+@media (min-width: 992px) and (hover: hover) {
+  .articles_item-link:hover .articles_item-title {
+    color: var(--red);
+  }
 }
 
 .articles_item-title {

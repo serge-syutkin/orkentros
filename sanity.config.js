@@ -9,7 +9,7 @@ const singletonActions = new Set(['publish', 'discardChanges', 'restore'])
 
 export default defineConfig({
   name: 'orkentros',
-  title: 'El Universo de Orkentros',
+  title: 'El Mundo del Orkentros',
   projectId: '4mczpphj',
   dataset: 'production',
   basePath: '/studio',

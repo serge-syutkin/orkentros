@@ -13,13 +13,13 @@ export default function Articles({ articles }) {
   return (
     <>
       <Head>
-        <title>Artículos — El Universo de Orkentros</title>
+        <title>Contenido exclusivo — El Mundo del Orkentros</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content="" />
-        <meta property="og:title" content="Artículos — El Universo de Orkentros" />
+        <meta property="og:title" content="Contenido exclusivo — El Mundo del Orkentros" />
         <meta property="og:description" content="" />
         <meta property="og:type" content="website" />
-        <meta name="twitter:title" content="Artículos — El Universo de Orkentros" />
+        <meta name="twitter:title" content="Contenido exclusivo — El Mundo del Orkentros" />
         <meta name="twitter:description" content="" />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
@@ -27,7 +27,7 @@ export default function Articles({ articles }) {
         <section className="article_hero u-section">
           <div className="u-container">
             <div className="article_hero_layout">
-              <h1 className="article_title">Artículos</h1>
+              <h1 className="article_title">Contenido exclusivo</h1>
             </div>
           </div>
         </section>
@@ -40,7 +40,7 @@ export default function Articles({ articles }) {
               <ul className="articles_list">
                 {articles.map((a) => (
                   <li key={a.slug.current} className="articles_item">
-                    <Link href={`/articles/${a.slug.current}`} className="articles_item-link">
+                    <Link href={`/exclusivo/${a.slug.current}`} className="articles_item-link">
                       <span className="articles_item-title">{a.title}</span>
                       {a.publishedAt && (
                         <span className="u-text-small articles_item-date">

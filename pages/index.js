@@ -1,6 +1,20 @@
 import Head from "next/head";
 import { useEffect } from "react";
 import Header from "../components/Header";
+import { client } from "../sanity/lib/client";
+
+// Defaults used until the client fills in the SEO fields in Sanity (and as a
+// fallback if either is left blank).
+const DEFAULT_TITLE = "El Mundo del Orkentros";
+const DEFAULT_DESCRIPTION =
+  "Fantasía épica y oscura inspirada en la mitología celta y vikinga. Descubre el Mundo del Orkentros, la saga de la Llama Azul de J.R. Güemes.";
+
+export async function getStaticProps() {
+  const seo = await client.fetch(
+    `*[_type == "homeSeo"][0]{ metaTitle, metaDescription }`
+  );
+  return { props: { seo: seo || null }, revalidate: 300 };
+}
 
 function initModalBasic() {
   const modalGroup = document.querySelector("[data-modal-group-status]");
@@ -40,7 +54,10 @@ function initModalBasic() {
   }
 }
 
-export default function Home() {
+export default function Home({ seo }) {
+  const title = seo?.metaTitle || DEFAULT_TITLE;
+  const description = seo?.metaDescription || DEFAULT_DESCRIPTION;
+
   useEffect(() => {
     initModalBasic();
 
@@ -188,13 +205,13 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>El Universo de Orkentros</title>
-        <meta name="description" content="" />
-        <meta property="og:title" content="El Universo de Orkentros" />
-        <meta property="og:description" content="" />
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
         <meta property="og:type" content="website" />
-        <meta name="twitter:title" content="El Universo de Orkentros" />
-        <meta name="twitter:description" content="" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>

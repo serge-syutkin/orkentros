@@ -1,3 +1,26 @@
+/* 404 page: full-height — message centered, button pinned to the bottom */
+.error_section {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.error_content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.error_button {
+  margin-top: auto;
+  margin-bottom: 40px;
+}
+
 /* Override Webflow framework fixed line-heights on headings */
 h3 {
   line-height: 110%;

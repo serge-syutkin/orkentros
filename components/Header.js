@@ -10,9 +10,6 @@ export default function Header() {
         <p className="u-text-small">Fantasía épica y oscura</p>
         <p className="u-text-small">Inspirado en la mitología celta y vikinga</p>
       </div>
-      <Link href="/articles" className="header-link u-text-small">
-        Artículos
-      </Link>
     </div>
   );
 }

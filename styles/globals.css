@@ -22,75 +22,28 @@ input:focus::placeholder {
   color: transparent;
 }
 
-/* Sitewide fixed header: name top-left, intro centered, Artículos link top-right */
-.fixed-top {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: start;
-}
-
+/* Sitewide fixed header: name centered on top, intro centered below
+   (original Webflow centered stack; .fixed-top keeps its flex-column
+   place-items:center from webflow.css) */
 .fixed-top .u-text-small {
   line-height: 120%;
 }
 
+/* J.R. Güemes: red brand background, blends via .fixed-top's
+   mix-blend-mode: difference (set in webflow.css). text-decoration:none
+   kills the default link underline since the name links home. */
 .fixed-top .name {
-  justify-self: start;
-  background-color: transparent;
-  color: inherit;
+  background-color: var(--red);
+  color: #000;
   text-decoration: none;
-  border-bottom: 2px solid transparent;
-  transition: border-bottom-color 0.2s ease;
 }
 
 .fixed-top .fixed-center {
   text-align: center;
-}
-
-.fixed-top .header-link {
-  justify-self: end;
-  text-align: right;
-  text-decoration: none;
-  color: inherit;
-  border-bottom: 2px solid transparent;
-  transition: border-bottom-color 0.2s ease;
-}
-
-/* Red hover only on desktop with a real pointer (no touch tap-stick) */
-@media (min-width: 992px) and (hover: hover) {
-  /* underline on hover, same style/color as the text */
-  .fixed-top .name:hover,
-  .fixed-top .header-link:hover {
-    border-bottom-color: currentColor;
-  }
-}
-
-/* Mobile: name + intro grouped top-left (left-aligned), link top-right */
-@media (max-width: 479px) {
-  .fixed-top {
-    grid-template-columns: 1fr auto;
-    row-gap: 4px;
-  }
-
-  .fixed-top .name {
-    grid-column: 1;
-    grid-row: 1;
-  }
-
-  .fixed-top .fixed-center {
-    grid-column: 1;
-    grid-row: 2;
-    justify-self: start;
-    text-align: left;
-    max-width: 21ch;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .fixed-top .header-link {
-    grid-column: 2;
-    grid-row: 1;
-  }
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 /* Articles listing */

@@ -161,3 +161,226 @@ input:focus::placeholder {
 [data-modal-name][data-modal-status="active"] {
   display: flex;
 }
+
+/* ---------------------------------------------------------------
+   Book product page (/el-despertar-de-la-llama-azul) and order confirmation
+   --------------------------------------------------------------- */
+
+/* Clears the fixed header, matching .article_hero_layout on the article pages. */
+.book_hero {
+  padding-top: 160px;
+  padding-bottom: 40px;
+}
+
+.book_layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: clamp(24px, 5vw, 64px);
+  align-items: start;
+}
+
+@media (max-width: 991px) {
+  .book_layout {
+    grid-template-columns: 1fr;
+  }
+
+  .book_cover {
+    max-width: 320px;
+  }
+}
+
+/* The article h1 is sized for a full-width, centered page; in the two-column
+   product layout it needs to come down. */
+.book_info .article_title {
+  font-size: clamp(2.5rem, 5.5vw, 4.5rem);
+  line-height: 100%;
+}
+
+.book_cover {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+}
+
+/* Stand-in until the real cover artwork is delivered. */
+.book_cover--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(0, 0, 0, 0.4));
+}
+
+.book_cover-rune {
+  font-family: Norse, Arial, sans-serif;
+  font-size: clamp(4rem, 12vw, 9rem);
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.book_author {
+  margin-top: 8px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.book_logline {
+  margin-top: clamp(16px, 3vw, 28px);
+}
+
+.book_buy {
+  margin-top: clamp(24px, 4vw, 40px);
+  padding-top: clamp(24px, 4vw, 40px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.book_price {
+  font-family: Norse, Arial, sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  line-height: 100%;
+  color: #fff;
+}
+
+.book_shipping {
+  margin-top: 4px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.book_quantity {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: clamp(20px, 3vw, 32px);
+}
+
+.book_quantity-control {
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.book_quantity-btn {
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: 0;
+  color: #fff;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.book_quantity-btn:disabled {
+  color: rgba(255, 255, 255, 0.25);
+  cursor: not-allowed;
+}
+
+@media (hover: hover) {
+  .book_quantity-btn:not(:disabled):hover {
+    color: var(--red);
+  }
+}
+
+.book_quantity-value {
+  min-width: 44px;
+  text-align: center;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+
+/* .button is styled for the 4vw homepage CTA; reset the native <button>
+   chrome and bring the size down to something a product page can carry.
+   fit-content matters: .button:hover scales the box, so a full-width box
+   would slide the left-aligned label sideways instead of growing it. */
+.book_button {
+  margin-top: clamp(20px, 3vw, 32px);
+  padding: 0;
+  background: none;
+  border: 0;
+  font-size: clamp(2rem, 4vw, 3rem);
+  width: fit-content;
+}
+
+.book_button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.book_error {
+  margin-top: 16px;
+  color: var(--red);
+}
+
+.book_content .book_heading {
+  font-family: Norse, Arial, sans-serif;
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  line-height: 110%;
+  color: #fff;
+  margin-top: clamp(32px, 5vw, 56px);
+  margin-bottom: 16px;
+}
+
+.book_text {
+  margin-bottom: 1em;
+}
+
+/* Order confirmation: the colours flip — brand red ground, page-dark type —
+   and the whole section centres, like the 404 page. */
+.gracias_hero {
+  background-color: var(--red);
+  color: #1d1d1d;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+/* .article_title is red and the text utilities set #fff explicitly, so
+   inheriting from the section is not enough — each has to be named. */
+.gracias_hero .article_title,
+.gracias_hero .book_button,
+.gracias_hero .u-text-regular,
+.gracias_hero .u-text-small {
+  color: #1d1d1d;
+}
+
+/* The fixed header blends with difference, which reads white on the dark site
+   but turns cyan over red — and .name's red chip disappears entirely. Flip
+   both to the dark for the length of this page only. */
+body:has(.gracias_hero) .fixed-top {
+  mix-blend-mode: normal;
+  color: #1d1d1d;
+}
+
+body:has(.gracias_hero) .fixed-top .name {
+  background-color: #1d1d1d;
+  color: var(--red);
+}
+
+/* .book_button is width:fit-content, so centring needs auto margins. */
+.gracias_hero .book_button {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Bigger than the sitewide .u-text-regular and held to a readable measure.
+   The text is centred, so the auto margins keep the narrowed box centred too. */
+.gracias_hero .book_text {
+  font-size: clamp(1rem, 1vw, 1.375rem);
+  max-width: 45ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* The heading, the message and the button each need room to breathe — the
+   product page's tighter rhythm reads as cramped here. */
+.gracias_content .article_title {
+  margin-bottom: clamp(24px, 4vw, 40px);
+}
+
+.gracias_content .book_button {
+  margin-top: clamp(40px, 6vw, 72px);
+}

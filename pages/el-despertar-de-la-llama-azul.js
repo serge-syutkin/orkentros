@@ -66,6 +66,10 @@ export default function Libro({ price }) {
         <meta name="twitter:title" content={PAGE_TITLE} />
         <meta name="twitter:description" content={DESCRIPTION} />
         <meta name="twitter:card" content="summary_large_image" />
+        {/* REMOVE AT LAUNCH. The shop still runs on Stripe test keys, where a
+            purchase charges nothing — this page must not reach search results
+            until the live keys are in place. */}
+        <meta name="robots" content="noindex" />
       </Head>
 
       <Layout>

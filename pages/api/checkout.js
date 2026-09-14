@@ -24,7 +24,7 @@ export default async function handler(req, res) {
   const requested = Number.parseInt(req.body?.quantity, 10);
   const quantity = Math.min(Math.max(Number.isNaN(requested) ? 1 : requested, 1), MAX_QUANTITY);
 
-  const siteUrl = getSiteUrl();
+  const siteUrl = getSiteUrl(req);
 
   try {
     const session = await stripe.checkout.sessions.create({

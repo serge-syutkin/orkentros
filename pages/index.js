@@ -273,17 +273,19 @@ export default function Home({ seo }) {
               </div>
               <div className="hero_bottom">
                 <p className="u-text-small">
-                  Suscríbete
+                  Suscríbete gratis
                   <br />
-                  al boletín semanal,
+                  al blog semanal de
                   <br />
-                  conoce de J.R. Güemes,
+                  J.R. Güemes, entra a
                   <br />
-                  de El Mundo del Orkentros
+                  El Mundo del Orkentros
                   <br />
-                  y deja que «Coba» te cuente
+                  y recibe en tu email
                   <br />
-                  una leyenda en su cueva.
+                  una leyenda contada
+                  <br />
+                  por «Coba».
                 </p>
                 <div className="button" data-modal-target="modal-a">
                   <div>ÚNETE AQUÍ</div>
@@ -545,17 +547,19 @@ export default function Home({ seo }) {
                 </div>
                 <div className="footer_bottom">
                   <p className="cta_intro u-text-small">
-                    Suscríbete
+                    Suscríbete gratis
                     <br />
-                    al boletín semanal,
+                    al blog semanal de
                     <br />
-                    conoce de J.R. Güemes,
+                    J.R. Güemes, entra a
                     <br />
-                    de El Mundo del Orkentros
+                    El Mundo del Orkentros
                     <br />
-                    y deja que «Coba» te cuente
+                    y recibe en tu email
                     <br />
-                    una leyenda en su cueva.
+                    una leyenda contada
+                    <br />
+                    por «Coba».
                   </p>
                   <div className="button" data-modal-target="modal-a">
                     <div>ÚNETE AQUÍ</div>

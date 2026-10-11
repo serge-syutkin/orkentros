@@ -64,6 +64,16 @@ export default function Header() {
           <ul className="burger-nav__ul">
             <li className="burger-nav__li">
               <Link
+                href="/"
+                className="burger-nav__link"
+                data-navigation-toggle="close"
+                onClick={() => setNavOpen(false)}
+              >
+                <span className="burger-nav__link-text">INICIO</span>
+              </Link>
+            </li>
+            <li className="burger-nav__li">
+              <Link
                 href={PRODUCT_PATH}
                 className="burger-nav__link"
                 data-navigation-toggle="close"

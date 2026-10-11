@@ -69,6 +69,21 @@ input:focus::placeholder {
   gap: 4px;
 }
 
+/* Mobile: the header stack leaves the centre and sits against the left edge.
+   The right padding keeps the longest line clear of the burger. */
+@media screen and (max-width: 767px) {
+  .fixed-top {
+    text-align: left;
+    place-items: start;
+    padding-right: 72px;
+  }
+
+  .fixed-top .fixed-center {
+    text-align: left;
+    align-items: flex-start;
+  }
+}
+
 /* Articles listing */
 .articles_list {
   list-style: none;
@@ -627,11 +642,17 @@ body:has(.gracias_hero) .nav_button {
     transition: transform 0.75s cubic-bezier(0.7, 0, 0.3, 1);
   }
 
+  /* Closing runs bottom-up, opening top-down — the template's rhythm, with a
+     delay per item. Add a step here whenever an item is added. */
   .burger-nav__li:nth-child(1) .burger-nav__link {
-    transition-delay: 0.05s;
+    transition-delay: 0.1s;
   }
 
   .burger-nav__li:nth-child(2) .burger-nav__link {
+    transition-delay: 0.05s;
+  }
+
+  .burger-nav__li:nth-child(3) .burger-nav__link {
     transition-delay: 0s;
   }
 
@@ -645,6 +666,10 @@ body:has(.gracias_hero) .nav_button {
 
   [data-navigation-status="active"] .burger-nav__li:nth-child(2) .burger-nav__link {
     transition-delay: 0.35s;
+  }
+
+  [data-navigation-status="active"] .burger-nav__li:nth-child(3) .burger-nav__link {
+    transition-delay: 0.4s;
   }
 
   /* No hover treatment here by choice: the template's roll-up second copy and

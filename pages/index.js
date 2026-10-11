@@ -7,7 +7,7 @@ import { client } from "../sanity/lib/client";
 // fallback if either is left blank).
 const DEFAULT_TITLE = "El Mundo del Orkentros";
 const DEFAULT_DESCRIPTION =
-  "Fantasía épica y oscura inspirada en la mitología celta y vikinga. Descubre el Mundo del Orkentros, la saga de la Llama Azul de J.R. Güemes.";
+  "Fantasía épica y oscura inspirada en mitología celta y nórdica. Descubre el Mundo del Orkentros, la saga de la Llama Azul de J.R. Güemes.";
 
 export async function getStaticProps() {
   const seo = await client.fetch(
@@ -228,15 +228,19 @@ export default function Home({ seo }) {
               >
                 <div className="hero_descr-wrap">
                   <p className="hero_blend u-text-small">
-                    Compra la primera novela
+                    Lee la primera novela
                     <br />
                     de la saga de la Llama Azul.
                     <br />
-                    Pero antes déjame contarte algo
+                    Descubre la historia de Belard,
                     <br />
-                    de este mundo, de sus héroes, de sus traidores, de las bestias oscuras,
+                    la isla llamada Ertudom,
                     <br />
-                    de los Dioses y de la magia.
+                    la leyenda del Desleal
+                    <br />
+                    y la amenaza del Valtheeriond,
+                    <br />
+                    una bestia de sombras.
                   </p>
                   <div className="shape"></div>
                 </div>
@@ -250,17 +254,19 @@ export default function Home({ seo }) {
                 </div>
                 <div className="hero_descr-wrap">
                   <p className="hero_blend u-text-small">
-                    Verás que es
+                    Todos en Ertudom
                     <br />
-                    como una cultura
+                    saben que el despertar la
                     <br />
-                    y una mitología del mundo
+                    llama Azul es un mal augurio,
                     <br />
-                    antiguo que todo este tiempo
+                    uno de destrucción y caos.
                     <br />
-                    estuvo enterrada y apenas
+                    Muy pocos saben que será
                     <br />
-                    ha sido descubierta.
+                    la única luz cuando el mundo
+                    <br />
+                    se cubra de oscuridad.
                   </p>
                   <div className="shape"></div>
                 </div>

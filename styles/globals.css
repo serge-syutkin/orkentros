@@ -219,6 +219,14 @@ input:focus::placeholder {
   color: rgba(255, 255, 255, 0.25);
 }
 
+/* Availability notice sitting above the title. */
+.book_eyebrow {
+  margin-bottom: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
 .book_author {
   margin-top: 8px;
   color: rgba(255, 255, 255, 0.6);
@@ -313,6 +321,58 @@ input:focus::placeholder {
   color: var(--red);
 }
 
+/* Pre-launch notice revealed by the buy button. display:none rather than
+   opacity keeps it out of the layout while hidden, and still leaves it in the
+   DOM for the modal script to bind its [data-modal-target] on mount. */
+.book_notice {
+  display: none;
+  margin-top: 20px;
+  padding-left: 16px;
+  border-left: 1px solid var(--red);
+}
+
+.book_notice.is--visible {
+  display: block;
+  animation: book-notice-in 0.3s ease-out;
+}
+
+@keyframes book-notice-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.book_notice-date {
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.book_notice p {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.book_notice-link {
+  font: inherit;
+  color: #fff;
+  background: none;
+  border: 0;
+  padding: 0;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+@media (min-width: 992px) and (hover: hover) {
+  .book_notice-link:hover {
+    color: var(--red);
+  }
+}
+
 .book_content .book_heading {
   font-family: Norse, Arial, sans-serif;
   font-size: clamp(1.75rem, 4vw, 2.75rem);
@@ -383,4 +443,220 @@ body:has(.gracias_hero) .fixed-top .name {
 
 .gracias_content .book_button {
   margin-top: clamp(40px, 6vw, 72px);
+}
+
+/* Secondary nav buttons pinned to the top corners: .button's hover at half its
+   4vw size, but in the header's white-on-difference treatment rather than the
+   brand red. They stay outside .fixed-top and carry the blend themselves. */
+.nav_button {
+  position: fixed;
+  top: 20px;
+  z-index: 3;
+  font-size: 2vw;
+  width: fit-content;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: #fff;
+  mix-blend-mode: difference;
+}
+
+.nav_button--left {
+  left: 20px;
+}
+
+.nav_button--right {
+  right: 20px;
+}
+
+/* .button steps up to 6vw and then 11vw on narrower screens; stay at half of
+   whatever it is. (Its :hover is already switched off below 991px.) */
+@media screen and (max-width: 991px) {
+  .nav_button {
+    font-size: 3vw;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .nav_button {
+    font-size: 5.5vw;
+  }
+}
+
+/* Over the red confirmation page difference turns white type cyan, exactly as
+   it does to .fixed-top — so drop the blend here too and go dark. */
+body:has(.gracias_hero) .nav_button {
+  mix-blend-mode: normal;
+  color: #1d1d1d;
+}
+
+/* ---------------------------------------------------------------
+   Burger navigation, tablet and below. Adapted from Osmo's "Bold
+   Full Screen Navigation": the data-navigation-status attribute,
+   the selector names and the clip-path/transform choreography are
+   the template's; the palette, the type and the two items are ours.
+   --------------------------------------------------------------- */
+
+.burger-nav {
+  display: none;
+}
+
+@media screen and (max-width: 991px) {
+  /* The corner buttons hand over to the burger. */
+  .nav_button {
+    display: none;
+  }
+
+  .burger-nav {
+    display: block;
+    z-index: 100;
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+  }
+
+  .burger-nav__bar {
+    z-index: 1;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    padding: 20px;
+    position: absolute;
+  }
+
+  .burger-nav__hamburger {
+    pointer-events: auto;
+    color: #fff;
+    mix-blend-mode: difference;
+    cursor: pointer;
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    width: 3em;
+    height: 3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .burger-nav__hamburger-bar {
+    background-color: currentColor;
+    width: 2em;
+    height: 0.125em;
+    position: absolute;
+    transform: translate(0, 0) rotate(0.001deg);
+    transition: transform 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+  }
+
+  .burger-nav__hamburger-bar:nth-child(1) {
+    transform: translate(0, -0.45em) scale(1, 1) rotate(0.001deg);
+  }
+
+  .burger-nav__hamburger-bar:nth-child(3) {
+    transform: translate(0, 0.45em) scale(1, 1) rotate(0.001deg);
+  }
+
+  [data-navigation-status="active"] .burger-nav__hamburger-bar:nth-child(1) {
+    transform: translate(0, 0) rotate(45deg) scale(1, 1);
+  }
+
+  [data-navigation-status="active"] .burger-nav__hamburger-bar:nth-child(2) {
+    transform: translate(-150%, 0) rotate(0.001deg) scale(1, 1);
+  }
+
+  [data-navigation-status="active"] .burger-nav__hamburger-bar:nth-child(3) {
+    transform: translate(0, 0) rotate(-45deg) scale(1, 1);
+  }
+
+  /* Tile */
+  .burger-nav__tile {
+    pointer-events: auto;
+    background-color: #1d1d1d;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: clip-path 1s cubic-bezier(0.9, 0, 0.1, 1);
+    clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
+  }
+
+  [data-navigation-status="active"] .burger-nav__tile {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+
+  .burger-nav__ul {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* overflow:hidden is what hides each link below its row until the menu
+     opens — it is part of the open animation, not of any hover. */
+  .burger-nav__li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .burger-nav__link {
+    color: #fff;
+    font-family: Norse, Arial, sans-serif;
+    font-size: calc(2.5vw + 2.5vh);
+    line-height: 1.1;
+    text-decoration: none;
+    background: none;
+    border: 0;
+    padding: 0 0.075em;
+    cursor: pointer;
+    transform: translateY(100%) rotate(0.001deg);
+    transition: transform 0.75s cubic-bezier(0.7, 0, 0.3, 1);
+  }
+
+  .burger-nav__li:nth-child(1) .burger-nav__link {
+    transition-delay: 0.05s;
+  }
+
+  .burger-nav__li:nth-child(2) .burger-nav__link {
+    transition-delay: 0s;
+  }
+
+  [data-navigation-status="active"] .burger-nav__link {
+    transform: translateY(0%) rotate(0.001deg);
+  }
+
+  [data-navigation-status="active"] .burger-nav__li:nth-child(1) .burger-nav__link {
+    transition-delay: 0.3s;
+  }
+
+  [data-navigation-status="active"] .burger-nav__li:nth-child(2) .burger-nav__link {
+    transition-delay: 0.35s;
+  }
+
+  /* No hover treatment here by choice: the template's roll-up second copy and
+     its dimming of the other items are both dropped. */
+  .burger-nav__link-text {
+    display: block;
+    position: relative;
+  }
+
+  /* Over the red confirmation page difference turns white type cyan. */
+  body:has(.gracias_hero) .burger-nav__hamburger {
+    mix-blend-mode: normal;
+    color: #1d1d1d;
+  }
 }

@@ -1,8 +1,10 @@
 import Head from "next/head";
 import { useState } from "react";
 import Layout from "../components/Layout";
+import { client } from "../sanity/lib/client";
 import { getStripe } from "../lib/stripe";
 import { MAX_QUANTITY, formatPrice } from "../lib/shop";
+import Testimonials from "../components/Testimonials";
 
 const TITLE = "El Despertar de la Llama Azul";
 const AVAILABILITY = "Disponible a partir del 22 de octubre de 2026";
@@ -32,10 +34,26 @@ export async function getStaticProps() {
     }
   }
 
-  return { props: { price }, revalidate: 3600 };
+  // Reviews are filed as drafts and approved by being published, so the draft
+  // filter is what keeps unread ones off the page. The copy number stays
+  // behind: it is for J.R. to check a review against the copies he sent.
+  let testimonials = [];
+  try {
+    testimonials = await client.fetch(
+      `*[_type == "testimonial" && !(_id in path("drafts.**"))] | order(submittedAt desc) {
+        "id": _id, name, comment, submittedAt
+      }`
+    );
+  } catch (err) {
+    console.error("Could not load testimonials:", err);
+  }
+
+  // Five minutes rather than an hour: an approved review that takes an hour to
+  // show up reads as broken to whoever just approved it.
+  return { props: { price, testimonials }, revalidate: 300 };
 }
 
-export default function Libro({ price }) {
+export default function Libro({ price, testimonials }) {
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -216,6 +234,8 @@ export default function Libro({ price }) {
             <p className="u-text-regular book_text">Bienvenido, viajero/a.</p>
           </div>
         </section>
+
+        <Testimonials testimonials={testimonials} />
       </Layout>
     </>
   );

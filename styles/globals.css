@@ -685,3 +685,110 @@ body:has(.gracias_hero) .nav_button {
     color: #1d1d1d;
   }
 }
+
+/* ---------------------------------------------------------------
+   Reader reviews on the book page
+   --------------------------------------------------------------- */
+
+.testimonials_list {
+  list-style: none;
+  margin: 0 0 clamp(32px, 5vw, 56px);
+  padding: 0;
+}
+
+.testimonials_item {
+  padding: clamp(20px, 3vw, 28px) 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.testimonials_item:first-child {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.testimonials_comment {
+  margin-bottom: 10px;
+  max-width: 60ch;
+}
+
+.testimonials_meta,
+.testimonials_hint,
+.testimonials_empty {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.testimonials_empty,
+.testimonials_thanks {
+  margin-bottom: clamp(24px, 4vw, 40px);
+  max-width: 45ch;
+}
+
+/* .button is sized for the homepage CTA; bring it down and reset the native
+   <button> chrome, and keep the box hugging its label so :hover scales the
+   text in place instead of sliding it sideways. */
+.testimonials_open,
+.testimonials_submit {
+  margin-top: clamp(16px, 2vw, 24px);
+  padding: 0;
+  background: none;
+  border: 0;
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  width: fit-content;
+}
+
+.testimonials_submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.testimonials_form {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 2.5vw, 24px);
+  max-width: 45ch;
+}
+
+.testimonials_field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.testimonials_field input,
+.testimonials_field textarea {
+  font: inherit;
+  color: #fff;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 10px 12px;
+  width: 100%;
+  transition: border-color 0.2s;
+}
+
+.testimonials_field textarea {
+  resize: vertical;
+}
+
+.testimonials_field input:focus,
+.testimonials_field textarea:focus {
+  outline: none;
+  border-color: var(--red);
+}
+
+.testimonials_hint {
+  align-self: flex-end;
+}
+
+/* Off-screen rather than display:none — bots skip what is not rendered. */
+.testimonials_honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.testimonials_error {
+  color: var(--red);
+}

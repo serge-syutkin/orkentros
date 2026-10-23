@@ -2,6 +2,7 @@ import { getStripe } from "../../lib/stripe";
 import {
   MAX_QUANTITY,
   PRODUCT_PATH,
+  SALE_STARTS_AT,
   SHIPPING_COUNTRIES,
   getSiteUrl,
 } from "../../lib/shop";
@@ -10,6 +11,12 @@ export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "Method not allowed" });
+  }
+
+  // The page hides its buy button before the sale opens, but this route is
+  // reachable on its own and the keys behind it are live money.
+  if (Date.now() < SALE_STARTS_AT) {
+    return res.status(403).json({ error: "La venta aún no ha comenzado." });
   }
 
   const stripe = getStripe();

@@ -3,18 +3,15 @@ import { useState } from "react";
 import Layout from "../components/Layout";
 import { client } from "../sanity/lib/client";
 import { getStripe } from "../lib/stripe";
-import { MAX_QUANTITY, formatPrice } from "../lib/shop";
+import { MAX_QUANTITY, SALE_STARTS_AT, formatPrice } from "../lib/shop";
 import Testimonials from "../components/Testimonials";
 
 const TITLE = "El Despertar de la Llama Azul";
 
-// Nothing can be bought before this moment: the author does not want a
-// subscriber finding a buy button while the shop still runs on Stripe test
-// keys. Midnight on 29 October 2026 in Mexico City, which is UTC-6 all year
-// since the country dropped daylight saving. Evaluated on the server and
-// passed down, so the page cannot disagree with itself after hydration; it
-// revalidates every five minutes, so it flips itself without a deploy.
-const SALE_STARTS_AT = Date.parse("2026-10-29T06:00:00Z");
+// SALE_STARTS_AT comes from lib/shop so the page and the checkout route can
+// never disagree about when the shop opens. It is read on the server and
+// passed down, so the page cannot contradict itself after hydration, and the
+// five-minute revalidation flips it without a deploy.
 const PAGE_TITLE = `${TITLE} — El Mundo del Orkentros`;
 const DESCRIPTION =
   "Un joven con la Llama Azul dentro. Una bestia de las sombras que despertará. Y una isla destinada a la destrucción. Primera novela de la saga de la Llama Azul, de J.R. Güemes.";

@@ -211,27 +211,12 @@ input:focus::placeholder {
   line-height: 100%;
 }
 
+/* No fixed aspect ratio: the artwork is a mock-up of the printed book with
+   its own framing, so cropping it to a shape would cut into the object. */
 .book_cover {
   display: block;
   width: 100%;
-  aspect-ratio: 2 / 3;
-  object-fit: cover;
-}
-
-/* Stand-in until the real cover artwork is delivered. */
-.book_cover--placeholder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  background: linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(0, 0, 0, 0.4));
-}
-
-.book_cover-rune {
-  font-family: Norse, Arial, sans-serif;
-  font-size: clamp(4rem, 12vw, 9rem);
-  line-height: 1;
-  color: rgba(255, 255, 255, 0.25);
+  height: auto;
 }
 
 .book_author {

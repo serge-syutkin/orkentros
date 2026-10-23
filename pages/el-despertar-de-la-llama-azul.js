@@ -105,10 +105,15 @@ export default function Libro({ price, testimonials, onSale }) {
         <section className="book_hero u-section">
           <div className="u-container-article">
             <div className="book_layout">
-              {/* Placeholder until the real cover artwork arrives. */}
-              <div className="book_cover book_cover--placeholder" aria-hidden="true">
-                <span className="book_cover-rune">ᚠ</span>
-              </div>
+              {/* Provisional artwork; the author will replace it with photos
+                  of the printed book. */}
+              <img
+                className="book_cover"
+                src="/portada-llama-azul.webp"
+                width={1121}
+                height={1401}
+                alt={`Portada de ${TITLE}, de J.R. Güemes`}
+              />
 
               <div className="book_info">
                 <h1 className="article_title">{TITLE}</h1>

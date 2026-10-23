@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { useEffect } from "react";
 import Header from "../components/Header";
+import Modals from "../components/Modals";
 import { client } from "../sanity/lib/client";
 
 // Defaults used until the client fills in the SEO fields in Sanity (and as a
@@ -569,51 +570,7 @@ export default function Home({ seo }) {
             </div>
           </section>
 
-          <div className="modal" data-modal-group-status="not-active">
-            <div className="modal__dark" data-modal-close></div>
-            <div
-              className="modal__card"
-              data-modal-status="not-active"
-              data-modal-name="modal-a"
-            >
-              <div className="modal__scroll">
-                <div className="modal__content">
-                  <div className="modal__btn-close" data-modal-close>
-                    <div className="modal_close">
-                      <p className="modal_close-text">x</p>
-                    </div>
-                  </div>
-                  <h2 className="modal_h2">ÚNETE AQUÍ</h2>
-                  <div className="substack_form">
-                    <iframe
-                      src="https://jrguemes.substack.com/embed?transparent=1"
-                      width="100%"
-                      height="150"
-                      style={{ border: 0, background: "transparent" }}
-                      frameBorder="0"
-                      scrolling="no"
-                      title="Suscripción al boletín"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              className="modal__card"
-              data-modal-status="not-active"
-              data-modal-name="modal-b"
-            >
-              <div className="modal__scroll">
-                <div className="modal__content">
-                  <h2 className="modal_close-text">Modal B</h2>
-                </div>
-              </div>
-              <div className="modal__btn-close" data-modal-close>
-                <div className="modal__btn-close-bar"></div>
-                <div className="modal__btn-close-bar is--second"></div>
-              </div>
-            </div>
-          </div>
+          <Modals />
         </div>
       </div>
     </>

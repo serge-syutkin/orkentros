@@ -33,8 +33,11 @@ export default function Header() {
         </div>
       </div>
 
-      {/* TODO: open a modal with the contact address — no destination yet. */}
-      <button type="button" className="button nav_button nav_button--right">
+      <button
+        type="button"
+        className="button nav_button nav_button--right"
+        data-modal-target="modal-b"
+      >
         <div>CONTACTO</div>
       </button>
 
@@ -83,7 +86,14 @@ export default function Header() {
               </Link>
             </li>
             <li className="burger-nav__li">
-              <button type="button" className="burger-nav__link">
+              {/* Closing the menu matters here: the contact modal would
+                  otherwise open behind the full-screen tile. */}
+              <button
+                type="button"
+                className="burger-nav__link"
+                data-modal-target="modal-b"
+                onClick={() => setNavOpen(false)}
+              >
                 <span className="burger-nav__link-text">CONTACTO</span>
               </button>
             </li>

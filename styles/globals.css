@@ -401,6 +401,12 @@ input:focus::placeholder {
   margin-bottom: 1em;
 }
 
+/* Synopsis and Presentación, to the same rhythm as the reviews below them.
+   Scoped to .book_content so the confirmation page keeps its own setting. */
+.book_content .book_text {
+  line-height: 140%;
+}
+
 /* Order confirmation: the colours flip — brand red ground, page-dark type —
    and the whole section centres, like the 404 page. */
 .gracias_hero {
@@ -707,7 +713,8 @@ body:has(.gracias_hero) .nav_button {
 
 .testimonials_comment {
   margin-bottom: 10px;
-  max-width: 60ch;
+  max-width: 80ch;
+  line-height: 140%;
 }
 
 .testimonials_meta,

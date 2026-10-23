@@ -7,13 +7,14 @@ import { MAX_QUANTITY, formatPrice } from "../lib/shop";
 import Testimonials from "../components/Testimonials";
 
 const TITLE = "El Despertar de la Llama Azul";
-const AVAILABILITY = "Disponible a partir del 22 de octubre de 2026";
 
-// The author does not have the printed book yet. Until he does, the buy button
-// explains the date instead of opening checkout. Flip this to true on 22
-// October 2026 — /api/checkout, the Stripe session and /gracias are already
-// wired up and tested behind it, nothing else has to change.
-const ON_SALE = false;
+// Nothing can be bought before this moment: the author does not want a
+// subscriber finding a buy button while the shop still runs on Stripe test
+// keys. Midnight on 29 October 2026 in Mexico City, which is UTC-6 all year
+// since the country dropped daylight saving. Evaluated on the server and
+// passed down, so the page cannot disagree with itself after hydration; it
+// revalidates every five minutes, so it flips itself without a deploy.
+const SALE_STARTS_AT = Date.parse("2026-10-29T06:00:00Z");
 const PAGE_TITLE = `${TITLE} — El Mundo del Orkentros`;
 const DESCRIPTION =
   "Un joven con la Llama Azul dentro. Una bestia de las sombras que despertará. Y una isla destinada a la destrucción. Primera novela de la saga de la Llama Azul, de J.R. Güemes.";
@@ -50,14 +51,16 @@ export async function getStaticProps() {
 
   // Five minutes rather than an hour: an approved review that takes an hour to
   // show up reads as broken to whoever just approved it.
-  return { props: { price, testimonials }, revalidate: 300 };
+  return {
+    props: { price, testimonials, onSale: Date.now() >= SALE_STARTS_AT },
+    revalidate: 300,
+  };
 }
 
-export default function Libro({ price, testimonials }) {
+export default function Libro({ price, testimonials, onSale }) {
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [noticeOpen, setNoticeOpen] = useState(false);
 
   async function handleBuy() {
     setLoading(true);
@@ -108,16 +111,15 @@ export default function Libro({ price, testimonials }) {
               </div>
 
               <div className="book_info">
-                <p className="u-text-small book_eyebrow">{AVAILABILITY}</p>
                 <h1 className="article_title">{TITLE}</h1>
                 <p className="u-text-small book_author">J.R. Güemes</p>
 
                 <p className="u-text-regular book_logline">
-                  Un joven con la Llama Azul dentro.
+                  Los primeros 500 ejemplares numerados.
                   <br />
-                  Una bestia de las sombras que despertará.
+                  Autografiado por el autor y dedicado a tu nombre.
                   <br />
-                  Y una isla destinada a la destrucción.
+                  Hasta agotar existencias.
                 </p>
 
                 {price ? (
@@ -125,63 +127,47 @@ export default function Libro({ price, testimonials }) {
                     <p className="book_price">{formatPrice(price.amount, price.currency)}</p>
                     <p className="u-text-small book_shipping">Envío incluido en México.</p>
 
-                    <div className="book_quantity">
-                      <span className="u-text-small">Cantidad</span>
-                      <div className="book_quantity-control">
+                    {/* The price stays visible before the sale opens — it tells
+                        a visitor something without offering them a purchase
+                        they cannot complete. The controls do not. */}
+                    {onSale && (
+                      <>
+                        <div className="book_quantity">
+                          <span className="u-text-small">Cantidad</span>
+                          <div className="book_quantity-control">
+                            <button
+                              type="button"
+                              className="book_quantity-btn"
+                              onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                              disabled={quantity <= 1 || loading}
+                              aria-label="Quitar un ejemplar"
+                            >
+                              −
+                            </button>
+                            <span className="book_quantity-value" aria-live="polite">
+                              {quantity}
+                            </span>
+                            <button
+                              type="button"
+                              className="book_quantity-btn"
+                              onClick={() => setQuantity((q) => Math.min(MAX_QUANTITY, q + 1))}
+                              disabled={quantity >= MAX_QUANTITY || loading}
+                              aria-label="Añadir un ejemplar"
+                            >
+                              +
+                            </button>
+                          </div>
+                        </div>
+
                         <button
                           type="button"
-                          className="book_quantity-btn"
-                          onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                          disabled={quantity <= 1 || loading}
-                          aria-label="Quitar un ejemplar"
+                          className="button book_button"
+                          onClick={handleBuy}
+                          disabled={loading}
                         >
-                          −
+                          <div>{loading ? "UN MOMENTO…" : "COMPRAR AHORA"}</div>
                         </button>
-                        <span className="book_quantity-value" aria-live="polite">
-                          {quantity}
-                        </span>
-                        <button
-                          type="button"
-                          className="book_quantity-btn"
-                          onClick={() => setQuantity((q) => Math.min(MAX_QUANTITY, q + 1))}
-                          disabled={quantity >= MAX_QUANTITY || loading}
-                          aria-label="Añadir un ejemplar"
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-
-                    <button
-                      type="button"
-                      className="button book_button"
-                      onClick={ON_SALE ? handleBuy : () => setNoticeOpen(true)}
-                      disabled={loading}
-                    >
-                      <div>{loading ? "UN MOMENTO…" : "COMPRAR AHORA"}</div>
-                    </button>
-
-                    {/* Always rendered, hidden with display:none, so the modal
-                        script finds its [data-modal-target] on mount. */}
-                    {!ON_SALE && (
-                      <div
-                        className={`book_notice${noticeOpen ? " is--visible" : ""}`}
-                        role="status"
-                      >
-                        <p className="u-text-small book_notice-date">
-                          A la venta el 22 de octubre de 2026.
-                        </p>
-                        <p className="u-text-small">
-                          Suscríbete al boletín y te aviso el día que salga.{" "}
-                          <button
-                            type="button"
-                            className="book_notice-link"
-                            data-modal-target="modal-a"
-                          >
-                            Únete aquí
-                          </button>
-                        </p>
-                      </div>
+                      </>
                     )}
 
                     {error && (
@@ -203,6 +189,10 @@ export default function Libro({ price, testimonials }) {
         <section className="book_content u-section">
           <div className="u-container-article">
             <h2 className="book_heading">Sinopsis</h2>
+            <p className="u-text-regular book_text">
+              Un joven con la Llama Azul dentro. Una bestia de las sombras que
+              despertará. Y una isla destinada a la destrucción.
+            </p>
             <p className="u-text-regular book_text">
               Tras una larga época de Armonía, Ertudom se enfrenta al cumplimiento de
               oscuras profecías que amenazan con desatar el Kaolieset, la destrucción del

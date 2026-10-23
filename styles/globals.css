@@ -234,14 +234,6 @@ input:focus::placeholder {
   color: rgba(255, 255, 255, 0.25);
 }
 
-/* Availability notice sitting above the title. */
-.book_eyebrow {
-  margin-bottom: 12px;
-  color: rgba(255, 255, 255, 0.6);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
 .book_author {
   margin-top: 8px;
   color: rgba(255, 255, 255, 0.6);
@@ -334,58 +326,6 @@ input:focus::placeholder {
 .book_error {
   margin-top: 16px;
   color: var(--red);
-}
-
-/* Pre-launch notice revealed by the buy button. display:none rather than
-   opacity keeps it out of the layout while hidden, and still leaves it in the
-   DOM for the modal script to bind its [data-modal-target] on mount. */
-.book_notice {
-  display: none;
-  margin-top: 20px;
-  padding-left: 16px;
-  border-left: 1px solid var(--red);
-}
-
-.book_notice.is--visible {
-  display: block;
-  animation: book-notice-in 0.3s ease-out;
-}
-
-@keyframes book-notice-in {
-  from {
-    opacity: 0;
-    transform: translateY(-6px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-.book_notice-date {
-  color: #fff;
-  margin-bottom: 4px;
-}
-
-.book_notice p {
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.book_notice-link {
-  font: inherit;
-  color: #fff;
-  background: none;
-  border: 0;
-  padding: 0;
-  text-decoration: underline;
-  cursor: pointer;
-  transition: color 0.2s;
-}
-
-@media (min-width: 992px) and (hover: hover) {
-  .book_notice-link:hover {
-    color: var(--red);
-  }
 }
 
 .book_content .book_heading {

@@ -32,6 +32,19 @@ export default async function handler(req, res) {
       line_items: [{ price: priceId, quantity }],
       shipping_address_collection: { allowed_countries: SHIPPING_COUNTRIES },
       phone_number_collection: { enabled: true },
+      // Every copy is signed and dedicated by hand, so the name has to be
+      // collected with the order. Stripe keeps one set of custom fields per
+      // session, not per line item: an order of several copies carries a
+      // single dedication.
+      custom_fields: [
+        {
+          key: "dedicatoria",
+          label: { type: "custom", custom: "Dedicado a" },
+          type: "text",
+          optional: false,
+          text: { maximum_length: 60 },
+        },
+      ],
       locale: "es",
       success_url: `${siteUrl}/gracias?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${siteUrl}${PRODUCT_PATH}`,

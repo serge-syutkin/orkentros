@@ -30,40 +30,18 @@ export default defineConfig({
               .id('homeSeo')
               .child(S.document().schemaType('homeSeo').documentId('homeSeo')),
             S.divider(),
-            // Reviews split by state, so what still needs reading is the first
-            // thing visible instead of being mixed in with what is published.
+            // One list, newest first. Splitting it by draft state does not
+            // work: the studio normalises draft ids out of its list queries,
+            // so a filter on path("drafts.**") matches nothing. Sanity marks
+            // the unpublished ones in the list itself, which is the same cue
+            // J.R. already reads on unpublished articles.
             S.listItem()
               .title('Reseñas')
               .id('testimonials')
               .child(
-                S.list()
+                S.documentTypeList('testimonial')
                   .title('Reseñas')
-                  .items([
-                    // A review arrives as a draft and is approved by being
-                    // published, so draft state is what separates the two.
-                    S.listItem()
-                      .title('Pendientes')
-                      .id('testimonialsPending')
-                      .child(
-                        S.documentList()
-                          .title('Pendientes')
-                          .filter('_type == "testimonial" && _id in path("drafts.**")')
-                          .defaultOrdering([
-                            { field: 'submittedAt', direction: 'desc' },
-                          ])
-                      ),
-                    S.listItem()
-                      .title('Publicadas')
-                      .id('testimonialsApproved')
-                      .child(
-                        S.documentList()
-                          .title('Publicadas')
-                          .filter('_type == "testimonial" && !(_id in path("drafts.**"))')
-                          .defaultOrdering([
-                            { field: 'submittedAt', direction: 'desc' },
-                          ])
-                      ),
-                  ])
+                  .defaultOrdering([{ field: 'submittedAt', direction: 'desc' }])
               ),
             S.divider(),
             // Everything else (Artículos, etc.) as normal lists

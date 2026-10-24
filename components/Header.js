@@ -2,6 +2,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { PRODUCT_PATH } from "../lib/shop";
 
+const CONTACT_EMAIL = "jrguemes@orkentros.com";
+
 export default function Header() {
   const [navOpen, setNavOpen] = useState(false);
 
@@ -33,13 +35,12 @@ export default function Header() {
         </div>
       </div>
 
-      <button
-        type="button"
+      <a
+        href={`mailto:${CONTACT_EMAIL}`}
         className="button nav_button nav_button--right"
-        data-modal-target="modal-b"
       >
         <div>CONTACTO</div>
-      </button>
+      </a>
 
       {/* Tablet and below. The data-navigation-status attribute drives every
           transition in CSS, exactly as in the original template; React only
@@ -86,16 +87,16 @@ export default function Header() {
               </Link>
             </li>
             <li className="burger-nav__li">
-              {/* Closing the menu matters here: the contact modal would
-                  otherwise open behind the full-screen tile. */}
-              <button
-                type="button"
+              {/* Closing the menu matters here: handing the address to a mail
+                  client leaves this page open, so the tile would still be
+                  covering it when the visitor comes back. */}
+              <a
+                href={`mailto:${CONTACT_EMAIL}`}
                 className="burger-nav__link"
-                data-modal-target="modal-b"
                 onClick={() => setNavOpen(false)}
               >
                 <span className="burger-nav__link-text">CONTACTO</span>
-              </button>
+              </a>
             </li>
           </ul>
         </div>

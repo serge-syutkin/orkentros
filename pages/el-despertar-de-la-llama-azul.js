@@ -1,9 +1,12 @@
 import Head from "next/head";
 import { useState } from "react";
 import Layout from "../components/Layout";
+import JsonLd from "../components/JsonLd";
 import { client } from "../sanity/lib/client";
 import { getStripe } from "../lib/stripe";
-import { MAX_QUANTITY, SALE_STARTS_AT, formatPrice } from "../lib/shop";
+import { MAX_QUANTITY, PRODUCT_PATH, SALE_STARTS_AT, formatPrice } from "../lib/shop";
+import { absoluteUrl } from "../lib/site";
+import { bookSchema } from "../lib/schema";
 import Testimonials from "../components/Testimonials";
 
 const TITLE = "El Despertar de la Llama Azul";
@@ -13,6 +16,11 @@ const TITLE = "El Despertar de la Llama Azul";
 // passed down, so the page cannot contradict itself after hydration, and the
 // five-minute revalidation flips it without a deploy.
 const PAGE_TITLE = `${TITLE} — El Mundo del Orkentros`;
+const COVER = "/portada-llama-azul.webp";
+// The same cover as a JPEG, for link previews only. Facebook and WhatsApp
+// render WebP previews unreliably, and WhatsApp is where this link will
+// travel most; the page itself keeps the lighter WebP.
+const SOCIAL_IMAGE = "/portada-llama-azul.jpg";
 const DESCRIPTION =
   "Un joven con la Llama Azul dentro. Una bestia de las sombras que despertará. Y una isla destinada a la destrucción. Primera novela de la saga de la Llama Azul, de J.R. Güemes.";
 
@@ -89,10 +97,22 @@ export default function Libro({ price, testimonials, onSale }) {
         <meta property="og:title" content={PAGE_TITLE} />
         <meta property="og:description" content={DESCRIPTION} />
         <meta property="og:type" content="product" />
+        <meta property="og:url" content={absoluteUrl(PRODUCT_PATH)} />
+        {/* The cover is portrait, so a shared link shows it tall rather than
+            cropped to a banner. A 1200×630 composition would sit better, but
+            the real cover beats no image at all. */}
+        <meta property="og:image" content={absoluteUrl(SOCIAL_IMAGE)} />
+        <meta property="og:image:width" content="1122" />
+        <meta property="og:image:height" content="1402" />
+        <meta property="og:image:alt" content={`Portada de ${TITLE}`} />
         <meta name="twitter:title" content={PAGE_TITLE} />
         <meta name="twitter:description" content={DESCRIPTION} />
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content={absoluteUrl(SOCIAL_IMAGE)} />
+        <link rel="canonical" href={absoluteUrl(PRODUCT_PATH)} />
       </Head>
+
+      <JsonLd data={bookSchema({ price, onSale, description: DESCRIPTION })} />
 
       <Layout>
         <section className="book_hero u-section">
@@ -102,7 +122,7 @@ export default function Libro({ price, testimonials, onSale }) {
                   of the printed book. */}
               <img
                 className="book_cover"
-                src="/portada-llama-azul.webp"
+                src={COVER}
                 width={1121}
                 height={1401}
                 alt={`Portada de ${TITLE}, de J.R. Güemes`}

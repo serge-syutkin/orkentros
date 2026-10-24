@@ -1,0 +1,9 @@
+# /gracias is deliberately absent: it carries a noindex meta tag, and a
+# crawler has to be allowed in to read it. Blocking it here would leave the
+# page crawl-blocked but still eligible to appear in results.
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /studio
+
+Sitemap: https://orkentros.com/sitemap.xml

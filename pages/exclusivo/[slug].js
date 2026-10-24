@@ -3,6 +3,7 @@ import { PortableText } from "next-sanity";
 import Layout from "../../components/Layout";
 import { client } from "../../sanity/lib/client";
 import { urlFor } from "../../sanity/lib/image";
+import { absoluteUrl } from "../../lib/site";
 
 function formatDate(dateStr) {
   if (!dateStr) return "";
@@ -32,8 +33,10 @@ const portableTextComponents = {
   },
 };
 
-export default function Article({ article }) {
+export default function Article({ article, slug }) {
   if (!article) return null;
+
+  const url = absoluteUrl(`/exclusivo/${slug}`);
 
   return (
     <>
@@ -53,6 +56,8 @@ export default function Article({ article }) {
         {article.coverImage && (
           <meta name="twitter:image" content={urlFor(article.coverImage).width(1200).height(630).fit("crop").url()} />
         )}
+        <meta property="og:url" content={url} />
+        <link rel="canonical" href={url} />
       </Head>
       <Layout>
         <section className="article_hero u-section">
@@ -121,5 +126,5 @@ export async function getStaticProps({ params }) {
 
   if (!article) return { notFound: true };
 
-  return { props: { article }, revalidate: 3600 };
+  return { props: { article, slug: params.slug }, revalidate: 3600 };
 }

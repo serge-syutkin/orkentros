@@ -1,7 +1,14 @@
 import Head from "next/head";
 import Link from "next/link";
 import Layout from "../../components/Layout";
+import JsonLd from "../../components/JsonLd";
 import { client } from "../../sanity/lib/client";
+import { absoluteUrl } from "../../lib/site";
+import { articlesSchema } from "../../lib/schema";
+
+const PAGE_TITLE = "Contenido exclusivo — El Mundo del Orkentros";
+const DESCRIPTION =
+  "Relatos y leyendas de El Mundo del Orkentros, escritos por J.R. Güemes para quienes quieren adentrarse más allá de las novelas.";
 
 function formatDate(dateStr) {
   if (!dateStr) return "";
@@ -13,16 +20,21 @@ export default function Articles({ articles }) {
   return (
     <>
       <Head>
-        <title>Contenido exclusivo — El Mundo del Orkentros</title>
+        <title>{PAGE_TITLE}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content="" />
-        <meta property="og:title" content="Contenido exclusivo — El Mundo del Orkentros" />
-        <meta property="og:description" content="" />
+        <meta name="description" content={DESCRIPTION} />
+        <meta property="og:title" content={PAGE_TITLE} />
+        <meta property="og:description" content={DESCRIPTION} />
         <meta property="og:type" content="website" />
-        <meta name="twitter:title" content="Contenido exclusivo — El Mundo del Orkentros" />
-        <meta name="twitter:description" content="" />
+        <meta property="og:url" content={absoluteUrl("/exclusivo")} />
+        <meta name="twitter:title" content={PAGE_TITLE} />
+        <meta name="twitter:description" content={DESCRIPTION} />
         <meta name="twitter:card" content="summary_large_image" />
+        <link rel="canonical" href={absoluteUrl("/exclusivo")} />
       </Head>
+
+      <JsonLd data={articlesSchema({ articles })} />
+
       <Layout>
         <section className="article_hero u-section">
           <div className="u-container">

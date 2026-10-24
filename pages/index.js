@@ -2,7 +2,10 @@ import Head from "next/head";
 import { useEffect } from "react";
 import Header from "../components/Header";
 import Modals from "../components/Modals";
+import JsonLd from "../components/JsonLd";
 import { client } from "../sanity/lib/client";
+import { absoluteUrl } from "../lib/site";
+import { homeSchema } from "../lib/schema";
 
 // Defaults used until the client fills in the SEO fields in Sanity (and as a
 // fallback if either is left blank).
@@ -215,7 +218,10 @@ export default function Home({ seo }) {
         <meta name="twitter:description" content={description} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="canonical" href={absoluteUrl("/")} />
       </Head>
+
+      <JsonLd data={homeSchema({ description })} />
 
       <div className="page-wrapper" data-page="home">
         <div className="main-wrapper">

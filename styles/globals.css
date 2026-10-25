@@ -725,3 +725,21 @@ body:has(.gracias_hero) .nav_button {
   color: var(--red);
 }
 
+
+/* Contact modal */
+.modal_text {
+  margin-bottom: 16px;
+  max-width: 40ch;
+}
+
+/* Shown as text, not as a mailto link, on the author's instruction, so the
+   address has to be read and retyped. That rules out Norse, which draws the
+   @ as a rune: the body mono face is what makes it legible. break-all keeps
+   the address inside the card on a narrow phone. */
+.modal_email {
+  font-family: inherit;
+  font-size: clamp(1rem, 2.5vw, 1.375rem);
+  line-height: 110%;
+  color: var(--red);
+  word-break: break-all;
+}

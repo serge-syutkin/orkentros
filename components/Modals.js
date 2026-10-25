@@ -1,7 +1,11 @@
-// The newsletter modal lives here rather than inline in Layout and index,
-// which carried identical copies of this markup. initModalBasic binds
-// [data-modal-target] to [data-modal-name] on mount, so nothing else is
-// needed to open it.
+// Dirección de contacto. The modal shows it as plain text on the author's
+// instruction: no link, nothing to click.
+const CONTACT_EMAIL = "jrguemes@orkentros.com";
+
+// Both modals live here rather than in each page, because the header's
+// CONTACTO button sits on every page and its target has to exist wherever it
+// is clicked. initModalBasic binds [data-modal-target] to [data-modal-name] on
+// mount, so nothing else is needed to open them.
 export default function Modals() {
   return (
     <div className="modal" data-modal-group-status="not-active">
@@ -27,6 +31,24 @@ export default function Modals() {
                 title="Suscripción al boletín"
               />
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="modal__card" data-modal-status="not-active" data-modal-name="modal-b">
+        <div className="modal__scroll">
+          <div className="modal__content">
+            <div className="modal__btn-close" data-modal-close>
+              <div className="modal_close">
+                <p className="modal_close-text">x</p>
+              </div>
+            </div>
+            <h2 className="modal_h2">CONTACTO</h2>
+            <p className="u-text-regular modal_text">
+              Cualquier consulta (sobre libros, editorial, prensa,
+              presentaciones, compras, distribución, eventos) escribe a:
+            </p>
+            <p className="modal_email">{CONTACT_EMAIL}</p>
           </div>
         </div>
       </div>

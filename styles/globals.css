@@ -743,3 +743,14 @@ body:has(.gracias_hero) .nav_button {
   color: var(--red);
   word-break: break-all;
 }
+
+/* Exclusive fragment page */
+
+/* The gap between the lede and the fragment, doubled from the one paragraph
+   spacing the template gives every break. Vertical margins collapse, so this
+   single value decides the whole gap — it beats both the lede's own bottom
+   margin and the fragment's top margin rather than adding to them. In em, so
+   it scales with the text at every breakpoint and needs no media query. */
+.exclusivo_lede {
+  margin-bottom: 2em;
+}

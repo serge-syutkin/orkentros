@@ -36,15 +36,20 @@ export default function LlamaAzulExclusivo() {
                 the italics the author marked them with and the glossary gets
                 the list styling the template already defines. */}
             <div className="article_rte w-richtext">
-              <p>
-                Fragmento exclusivo para quienes hayan adquirido{" "}
-                <em>El Despertar de la Llama Azul</em>.
-              </p>
+              {/* The two opening lines are a lede, not part of the fragment.
+                  The document the author sent breaks here, and the ordinary
+                  paragraph gap does not read as a break. */}
+              <div className="exclusivo_lede">
+                <p>
+                  Fragmento exclusivo para quienes hayan adquirido{" "}
+                  <em>El Despertar de la Llama Azul</em>.
+                </p>
 
-              <p>
-                Un adelanto de El Noble y el Guardián, próxima entrega de{" "}
-                <em>El Mundo del Orkentros</em>.
-              </p>
+                <p>
+                  Un adelanto de El Noble y el Guardián, próxima entrega de{" "}
+                  <em>El Mundo del Orkentros</em>.
+                </p>
+              </div>
 
               <p>
                 En el sitio más recóndito del interior de la montaña, a la luz
